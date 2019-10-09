@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+<table id="showUsers" border="1px"></table>
+<input type="button" value="添加" onclick="addUserShow()" />
+<span id="form1"></span>
+<script >
+    function login() {
+        var isLogin=false;
+        var username = $("#username").val();//获取表单的输入值;
+        var userpwd = $("#userpwd").val();//获取表单的输入值;
+        var form=document.getElementById("form1");
+        if(username!=null&&userpwd!=null&&username!=""&&userpwd!=""){
+            $.ajax({
+                type: "post",  //数据提交方式（post/get）
+                url: "login1",  //提交到的url
+                data: {"username": username, "userpwd": userpwd},//提交的数据
+                dataType: "json",//返回的数据类型格式
+                success: function (data) {
+                    if (data.msg!=undefined) {
+                        $("#msg").html (data.msg);
+                    } else {
+                        location.href="success.html";
+                    }
+                }
+            })
+        }else{
+            isLogin=false;
+            $("#msg").html("用户名与密码不能为空");
+        }
+        return isLogin;
+    }
+</script>
+</body>
+</html>
